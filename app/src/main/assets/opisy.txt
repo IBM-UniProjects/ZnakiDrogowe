@@ -1,0 +1,18 @@
+﻿A-1 niebezpieczny zakręt w prawo
+A-2 niebezpieczny zakręt w lewo
+A-3 niebezpieczne zakręty - pierwszy w prawo
+A-4 niebezpieczne zakręty - pierwszy w lewo
+A-5 skrzyżowanie dróg
+A-7 ustąp pierwszeństwa
+B-1 zakaz ruchu w obu kierunkach
+B-2 zakaz wjazdu
+B-3 zakaz wjazdu pojazdów silnikowych, z wyjątkiem motocykli jednośladowych
+B-4 zakaz wjazdu motocykli
+B-5 zakaz wjazdu samochodów ciężarowych
+B-6 zakaz wjazdu ciągników rolniczych
+C-1 nakaz jazdy w prawo przed znakiem
+C-2 nakaz jazdy w prawo za znakiem
+C-3 nakaz jazdy w lewo przed znakiem
+C-4 nakaz jazdy w lewo za znakiem
+C-5 nakaz jazdy prosto
+C-6 nakaz jazdy prosto lub w prawo
