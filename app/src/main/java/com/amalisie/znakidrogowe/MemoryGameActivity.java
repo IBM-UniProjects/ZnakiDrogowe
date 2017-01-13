@@ -4,27 +4,20 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MemoryGameActivity extends AppCompatActivity implements View.OnClickListener, Runnable {
 
@@ -45,11 +38,14 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
     private Handler handler;
     private boolean stopTimer;
     private int tilesLeft;
+    private boolean gameEnded;
+    private int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory_game);
+        setTitle(getTitle() + " - POMOC");
 
         this.rootLayout = (RelativeLayout) findViewById(R.id.activity_memory_game);
         this.textView = (TextView) findViewById(R.id.text_view);
@@ -59,13 +55,16 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         this.startButton = (Button) findViewById(R.id.start_button);
         this.startButton.setOnClickListener(this);
         this.helpTextView = (TextView) findViewById(R.id.help_text_view);
+        this.helpTextView.setText(Utils.openTextFile(this, "pomoc1.txt"));
 
         this.memoryGame = new MemoryGame(this);
+        this.level = memoryGame.level;
         this.tilesLeft = memoryGame.pickedSigns.size();
 
         createTiles();
         addTilesToGrid();
         this.lastTile = null;
+        this.gameEnded = false;
     }
 
     protected void startTimer() {
@@ -83,6 +82,12 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
     protected void checkGameStatus() {
         if (tilesLeft == 0) {
             stopTimer();
+            gameEnded = true;
+
+            helpTextView.setTextSize(30);
+            helpTextView.setText("BRAWO!!!\nTwoja punktacja to:\n" + String.valueOf(elapsedTime / 1000000));
+            startButton.setText("DALEJ");
+
             rootLayout.addView(helpTextView);
             rootLayout.addView(startButton);
         }
@@ -163,9 +168,14 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (v == startButton) {
-            ((ViewGroup) v.getParent()).removeView(helpTextView);
-            ((ViewGroup) v.getParent()).removeView(startButton);
-            startTimer();
+            if (!gameEnded) {
+                ((ViewGroup) v.getParent()).removeView(helpTextView);
+                ((ViewGroup) v.getParent()).removeView(startButton);
+                setTitle("Gra Memory - Poziom " + level);
+                startTimer();
+            } else {
+                // go to next activity
+            }
         }
     }
 

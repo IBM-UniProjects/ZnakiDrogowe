@@ -1,4 +1,4 @@
-﻿A-1 niebezpieczny zakręt w prawo
+A-1 niebezpieczny zakręt w prawo
 A-2 niebezpieczny zakręt w lewo
 A-3 niebezpieczne zakręty - pierwszy w prawo
 A-4 niebezpieczne zakręty - pierwszy w lewo
