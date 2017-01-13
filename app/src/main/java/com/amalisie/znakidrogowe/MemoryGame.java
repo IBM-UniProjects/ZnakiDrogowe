@@ -7,14 +7,13 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
 public class MemoryGame {
 
     private static final String TAG = MemoryGame.class.getName();
-    public static final int TILES_NO = 10;
+    public static final int TILES_NO = 2;
     public ArrayList<RoadSign> roadSigns;
     public HashMap<String, RoadSign> pickedSigns;
     public String opisy;
