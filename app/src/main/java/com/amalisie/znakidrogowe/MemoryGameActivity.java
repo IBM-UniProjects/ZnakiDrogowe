@@ -1,5 +1,6 @@
 package com.amalisie.znakidrogowe;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,7 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
     private static final String TAG = MemoryGameActivity.class.getName();
 
     private RelativeLayout rootLayout;
-    private MemoryGame memoryGame;
+    private Game game;
     private TextView textView;
     private TextView textView3;
     private Button startButton;
@@ -57,9 +58,9 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         this.helpTextView = (TextView) findViewById(R.id.help_text_view);
         this.helpTextView.setText(Utils.openTextFile(this, "pomoc1.txt"));
 
-        this.memoryGame = new MemoryGame(this);
-        this.level = memoryGame.level;
-        this.tilesLeft = memoryGame.pickedSigns.size();
+        this.game = new Game(this);
+        this.level = game.level;
+        this.tilesLeft = game.pickedSigns.size();
 
         createTiles();
         addTilesToGrid();
@@ -106,7 +107,7 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
 
     protected void createTiles() {
         tiles = new ArrayList<>();
-        for (RoadSign roadSign : memoryGame.pickedSigns.values()) {
+        for (RoadSign roadSign : game.pickedSigns.values()) {
             NameTile nameTile = new NameTile(this);
             ImgTile imgTile = new ImgTile(this);
             nameTile.setRoadSign(roadSign);
@@ -123,7 +124,7 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public Drawable getImageFromAssets(String img) {
+    /*public Drawable getImageFromAssets(String img) {
         try(InputStream is = getAssets().open(img)) {
             Drawable d = Drawable.createFromStream(is, img);
             return d;
@@ -131,6 +132,14 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
             Log.e(TAG, "getImageFromAssets: ", e);
         }
         return null;
+    }*/
+
+    protected void moveToArcadeGameActivity() {
+        Intent intent = new Intent(this, ArcadeGameActivity.class);
+        intent.putExtra(Utils.ELAPSED_TIME, elapsedTime);
+        game.prepareForSerialization();
+        intent.putExtra(Utils.GAME, game);
+        startActivity(intent);
     }
 
     @Override
@@ -175,6 +184,7 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
                 startTimer();
             } else {
                 // go to next activity
+                moveToArcadeGameActivity();
             }
         }
     }
