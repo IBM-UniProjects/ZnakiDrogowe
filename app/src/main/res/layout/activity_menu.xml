@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.amalisie.znakidrogowe.MenuActivity">
+
+    <TextView
+        android:text="Twórca: Amadeusz Lisiecki"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/creator" />
+
+    <Button
+        android:text="POWRÓT"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/back"
+        android:layout_above="@+id/creator"
+        android:layout_marginBottom="30dp"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true" />
+
+    <RadioGroup
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/radioGroup">
+
+        <RadioButton
+            android:text="Poziom 1"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/level1"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Poziom 2"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/level2"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Poziom 3"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/level3"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <Button
+        android:text="WYJDŹ"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/exit"
+        android:layout_below="@+id/options"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="NOWA GRA"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_game"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="OPCJE"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/score_board"
+        android:layout_marginTop="30dp"
+        android:id="@+id/options"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="WYNIKI"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_game"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/score_board" />
+
+    <TextView
+        android:text="WYNIKI"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/score_view" />
+
+    <TableLayout
+        android:id="@+id/table"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/score_view">
+
+        <TableRow
+            android:id="@+id/tableRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <TextView
+                android:id="@+id/dataColumn"
+                android:layout_width="80dp"
+                android:textSize="20dp"
+                android:text="Data"
+                android:textAlignment="center"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:id="@+id/timeColumn"
+                android:layout_width="80dp"
+                android:textSize="20dp"
+                android:text="Czas"
+                android:textAlignment="center"
+                android:layout_marginLeft="5dp" />
+            <TextView
+                android:id="@+id/scoreColumn"
+                android:layout_width="80dp"
+                android:textSize="20dp"
+                android:text="Punkty"
+                android:textAlignment="center"
+                android:layout_marginLeft="5dp" />
+            <TextView
+                android:id="@+id/levelColumn"
+                android:layout_width="80dp"
+                android:textSize="20dp"
+                android:text="Poziom"
+                android:textAlignment="center"/>
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

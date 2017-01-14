@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_arcade_game"
     android:layout_width="match_parent"
@@ -34,5 +35,24 @@
         android:textColor="#000000"
         android:text="POMOC"
         android:background="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/road_sign_group_view"
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:background="#FFFFFF"
+        android:layout_above="@+id/start_button2"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="180px"
+        android:layout_height="180px"
+        android:scaleType="fitXY"
+        android:layout_above="@+id/start_button2"
+        android:id="@+id/image_view2" />
 
 </RelativeLayout>

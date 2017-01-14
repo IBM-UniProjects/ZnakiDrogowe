@@ -43,7 +43,6 @@ public class FlyingRoadSign extends Button {
     public void fly()
     {
         ViewGroup parent = (ViewGroup) getParent();
-        System.out.println("Angle: " + this.angle);
         float newX = this.getX() + this.dX;
         float newY = this.getY() + this.dY;
         if (newX > parent.getWidth())
@@ -51,11 +50,18 @@ public class FlyingRoadSign extends Button {
         if ((newX + this.getWidth()) < 0)
             newX = parent.getWidth();
         if (newY > parent.getHeight())
-            newY = 0;
-        if (newY < 0)
+            newY = 0 - this.getHeight();
+        if ((newY + this.getHeight()) < 0)
             newY = parent.getHeight();
         this.setX(newX);
         this.setY(newY);
 
+    }
+
+    public void vanish(String selectedSignGroup) {
+        ViewGroup parent = (ViewGroup) getParent();
+        ArcadeGameActivity arcadeGameActivity = (ArcadeGameActivity) this.getContext();
+        parent.removeView(this);
+        arcadeGameActivity.flyingRoadSigns.remove(this);
     }
 }

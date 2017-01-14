@@ -1,11 +1,9 @@
 package com.amalisie.znakidrogowe;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,8 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -56,7 +52,7 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         this.startButton = (Button) findViewById(R.id.start_button);
         this.startButton.setOnClickListener(this);
         this.helpTextView = (TextView) findViewById(R.id.help_text_view);
-        this.helpTextView.setText(Utils.openTextFile(this, "pomoc1.txt"));
+        this.helpTextView.setText(Utils.openTextFileFromAssets(this, "pomoc1.txt"));
 
         this.game = new Game(this);
         this.level = game.level;
@@ -66,6 +62,12 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         addTilesToGrid();
         this.lastTile = null;
         this.gameEnded = false;
+    }
+
+    @Override
+    protected void onPause() {
+        stopTimer();
+        super.onPause();
     }
 
     protected void startTimer() {
@@ -86,7 +88,15 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
             gameEnded = true;
 
             helpTextView.setTextSize(30);
-            helpTextView.setText("BRAWO!!!\nTwoja punktacja to:\n" + String.valueOf(elapsedTime / 1000000));
+            long elapsedTimeMs = elapsedTime / 1000000;
+            helpTextView.setText("BRAWO!!!\nGra Memory: "
+                    + elapsedTimeMs
+                    + "ms\n"
+                    + "\nPunktacja - Poziom "
+                    + level
+                    + ":\n"
+                    + (elapsedTimeMs / level)
+                    + "pkt");
             startButton.setText("DALEJ");
 
             rootLayout.addView(helpTextView);
@@ -124,21 +134,17 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    /*public Drawable getImageFromAssets(String img) {
-        try(InputStream is = getAssets().open(img)) {
-            Drawable d = Drawable.createFromStream(is, img);
-            return d;
-        } catch (IOException e) {
-            Log.e(TAG, "getImageFromAssets: ", e);
-        }
-        return null;
-    }*/
-
     protected void moveToArcadeGameActivity() {
         Intent intent = new Intent(this, ArcadeGameActivity.class);
         intent.putExtra(Utils.ELAPSED_TIME, elapsedTime);
         game.prepareForSerialization();
         intent.putExtra(Utils.GAME, game);
+        startActivity(intent);
+    }
+
+    protected void moveToMenuActivityByBackPress() {
+        Intent intent = new Intent(this, MenuActivity.class);
+        stopTimer();
         startActivity(intent);
     }
 
@@ -198,5 +204,11 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         elapsedTime = System.nanoTime() - startTime;
         textView3.setText(String.valueOf(elapsedTime / 1000000));
         handler.postDelayed(this, 70);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveToMenuActivityByBackPress();
     }
 }
