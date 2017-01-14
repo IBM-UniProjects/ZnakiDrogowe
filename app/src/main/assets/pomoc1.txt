@@ -1,0 +1,7 @@
+1. Kliknij na kafelek aby odkryć nazwę lub obraz znaku.
+2. Gdy odkryjesz kolejny kafalek poprzedni zostanie zakryty.
+3. Aby odkryć znak na stałe kliknij po sobie kafelki ukrywające jego nazwę i obraz.
+4. Odkryj wszystkie znaki aby zakończyć grę.
+5. Punktacja to czas liczony w milisekundach - im mniej punktów tym lepiej.
+
+Powodzenia!
