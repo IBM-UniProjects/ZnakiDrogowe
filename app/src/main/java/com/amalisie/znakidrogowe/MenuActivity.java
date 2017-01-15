@@ -173,12 +173,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         String scoreFile = Utils.openTextFile(this, "score.txt");
         scoreView.setText("WYNIKI");
         scoreView.setVisibility(View.VISIBLE);
-        for (String line : scoreFile.split(System.lineSeparator())) {
-            String[] splittedLine = line.split(" ");
-            addRow(splittedLine[0].trim()
-                    , splittedLine[1].trim()
-                    , splittedLine[2].trim()
-                    , splittedLine[3].trim());
+        if (scoreFile != null) {
+            for (String line : scoreFile.split(System.lineSeparator())) {
+                String[] splittedLine = line.split(" ");
+                addRow(splittedLine[0].trim()
+                        , splittedLine[1].trim()
+                        , splittedLine[2].trim()
+                        , splittedLine[3].trim());
+            }
         }
         table.setVisibility(View.VISIBLE);
     }
@@ -236,17 +238,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 level3.setChecked(true);
                 break;
         }
-    }
-
-    /**
-     * Converts dp to px.
-     * @param dps
-     * @return pixels
-     */
-    private int getPixels(int dps) {
-        final float scale = getResources().getDisplayMetrics().density;
-        int pixels = (int) (dps * scale + 0.5f);
-        return pixels;
     }
 
     /**

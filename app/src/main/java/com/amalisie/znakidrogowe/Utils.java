@@ -43,6 +43,7 @@ public abstract class Utils {
 
         } catch (Exception e) {
             Log.e(TAG, "openTextFileFromAssets: ", e);
+            return null;
         }
         return sb.toString();
     }
@@ -66,6 +67,7 @@ public abstract class Utils {
 
         } catch (Exception e) {
             Log.e(TAG, "openTextFile: ", e);
+            return null;
         }
         return sb.toString();
     }
@@ -98,5 +100,16 @@ public abstract class Utils {
             Log.e(TAG, "getImageFromAssets: ", e);
         }
         return null;
+    }
+
+    /**
+     * Converts dp to px.
+     * @param dps
+     * @return pixels
+     */
+    public static int getPixels(Context context, int dps) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        int pixels = (int) (dps * scale + 0.5f);
+        return pixels;
     }
 }

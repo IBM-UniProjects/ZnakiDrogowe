@@ -49,8 +49,8 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="180px"
-        android:layout_height="180px"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:scaleType="fitXY"
         android:layout_above="@+id/start_button2"
         android:id="@+id/image_view2" />

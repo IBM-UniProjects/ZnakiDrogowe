@@ -173,7 +173,8 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
         for (RoadSign roadSign : game.pickedSigns.values()) {
             FlyingRoadSign flyingRoadSign = new FlyingRoadSign(this);
             flyingRoadSign.setRoadSign(roadSign);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(180, 180);
+            int pixels = Utils.getPixels(this, 60);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(pixels, pixels);
             params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
             flyingRoadSign.setLayoutParams(params);
             flyingRoadSign.setBackground(roadSign.img);
@@ -250,8 +251,9 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
      * Saves score in file.
      */
     private void saveScore() {
-        String scoreFile = "";
-        scoreFile = Utils.openTextFile(this, "score.txt");
+        String scoreFile = Utils.openTextFile(this, "score.txt");
+        if (scoreFile == null)
+            scoreFile = "";
         long scoreMs = score / 1000000;
         long elapsedTimeMs = elapsedTime / 1000000;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

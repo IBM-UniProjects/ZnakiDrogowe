@@ -44,8 +44,8 @@
 
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="180px"
-            android:layout_height="180px"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:scaleType="fitXY" />
 
         <TextView

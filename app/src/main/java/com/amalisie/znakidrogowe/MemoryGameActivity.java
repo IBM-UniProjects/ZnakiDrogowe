@@ -160,7 +160,8 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
             imgTile.setRoadSign(roadSign);
             nameTile.setBackgroundResource(android.R.drawable.btn_default);
             imgTile.setBackgroundResource(android.R.drawable.btn_default);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(180, 180);
+            int pixels = Utils.getPixels(this, 60);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pixels, pixels);
             nameTile.setLayoutParams(params);
             imgTile.setLayoutParams(params);
             nameTile.setOnClickListener(this);
