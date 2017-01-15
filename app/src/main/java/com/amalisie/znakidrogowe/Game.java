@@ -8,10 +8,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * Game class for Memory and Arcade games.
+ * Implements serializable.
+ * @author Amadeusz Lisiecki
+ */
 public class Game implements Serializable {
 
     private static final String TAG = Game.class.getName();
-    public static final int SIGNS_NO = 10;
+
     public ArrayList<RoadSign> roadSigns;
     public HashMap<String, RoadSign> pickedSigns;
     public HashMap<String, String> groupDesc;
@@ -21,13 +26,31 @@ public class Game implements Serializable {
 
     private Context context;
 
+    /**
+     * Context getter.
+     * @return context
+     */
     public Context getContext() {
         return this.context;
     }
+
+    /**
+     * Context setter.
+     * @param context
+     */
     public void setContext(Context context) {
         this.context = context;
     }
 
+    /**
+     * Constructor.
+     * - opens road signs descriptions file
+     * - sets game level
+     * - parses road signs
+     * - picks road signs by random
+     * - sets roads signs groups descriptions
+     * @param context
+     */
     public Game(Context context) {
         this.context = context;
         this.opisy = Utils.openTextFileFromAssets(context, "opisy.txt");
@@ -39,6 +62,9 @@ public class Game implements Serializable {
         initGroupDesc();
     }
 
+    /**
+     * Sets road signs groups descriptions.
+     */
     private void initGroupDesc() {
         groupDesc = new HashMap<>();
         groupDesc.put("A", "Znaki ostrzegawcze");
@@ -49,10 +75,17 @@ public class Game implements Serializable {
         groupDesc.put("F", "Znaki uzupełniające");
     }
 
+    /**
+     * Picks given number of road signs by random.
+     */
     public void randomize() {
         pickSigns(getNumberOfSigns());
     }
 
+    /**
+     * Gives number of road signs for given level and game type.
+     * @return numberOfSigns
+     */
     private int getNumberOfSigns() {
         if (context instanceof MemoryGameActivity)
             return level * 5;
@@ -62,6 +95,9 @@ public class Game implements Serializable {
             return 0;
     }
 
+    /**
+     * Gets game level from options.txt.
+     */
     private void setLevel() {
         File optionsFile = new File(context.getFilesDir() + "/options.txt");
         String options;
@@ -72,6 +108,10 @@ public class Game implements Serializable {
         level = Integer.parseInt(options.split("=")[1].trim());
     }
 
+    /**
+     * Picks given number of road signs by random.
+     * @param tilesNo
+     */
     private void pickSigns(int tilesNo){
         Random random = new Random();
         pickedSigns = new HashMap<>();
@@ -84,6 +124,9 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Parse road signs from description file.
+     */
     private void parseRoadSigns() {
         roadSigns = new ArrayList<>();
         for (String line : opisy.split(System.lineSeparator())) {
@@ -98,6 +141,10 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Prepares for serializations.
+     * Removes non-serializable image objects - Drawables.
+     */
     public void prepareForSerialization() {
         this.context = null;
         for (RoadSign roadSign : this.roadSigns) {
@@ -109,6 +156,11 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Restores game object after serialization.
+     * Restores non-serializable image objects - Drawables.
+     * @param context
+     */
     public void restoreObject(Context context) {
         this.context = context;
         for (RoadSign roadSign : this.roadSigns) {

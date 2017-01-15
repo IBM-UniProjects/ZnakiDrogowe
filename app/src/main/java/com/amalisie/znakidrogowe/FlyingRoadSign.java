@@ -3,10 +3,14 @@ package com.amalisie.znakidrogowe;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 
 import java.util.Random;
 
+/**
+ * Class for flying objects in Arcade Game.
+ * Extends Button.
+ * @author Amadeusz Lisiecki
+ */
 public class FlyingRoadSign extends Button {
 
     private RoadSign roadSign;
@@ -17,14 +21,29 @@ public class FlyingRoadSign extends Button {
     private float dX;
     private float dY;
 
+    /**
+     * RoadSign getter.
+     * @return roadSign
+     */
     public RoadSign getRoadSign() {
         return this.roadSign;
     }
 
+    /**
+     * RoadSign setter.
+     * @param roadSign
+     */
     public void setRoadSign(RoadSign roadSign) {
         this.roadSign = roadSign;
     }
 
+    /**
+     * Constructor.
+     * Takes Context.
+     * Sets random movement angle.
+     * Calculates shift in X and Y for angle.
+     * @param context
+     */
     public FlyingRoadSign(Context context) {
         super(context);
 
@@ -40,6 +59,10 @@ public class FlyingRoadSign extends Button {
         this.dY = this.speed * this.sina;
     }
 
+    /**
+     * Moves object by calculated shift in X and Y.
+     * Object leaving the display field returns on the other side.
+     */
     public void fly()
     {
         ViewGroup parent = (ViewGroup) getParent();
@@ -58,7 +81,10 @@ public class FlyingRoadSign extends Button {
 
     }
 
-    public void vanish(String selectedSignGroup) {
+    /**
+     * Removes caught object from the game.
+     */
+    public void vanish() {
         ViewGroup parent = (ViewGroup) getParent();
         ArcadeGameActivity arcadeGameActivity = (ArcadeGameActivity) this.getContext();
         parent.removeView(this);

@@ -5,6 +5,11 @@ import android.graphics.drawable.Drawable;
 
 import java.io.Serializable;
 
+/**
+ * Road sign class for Memory and Arcade games.
+ * Implements Serializable.
+ * @author Amadeusz Lisiecki
+ */
 public class RoadSign implements Serializable {
 
     public String name;
@@ -12,6 +17,10 @@ public class RoadSign implements Serializable {
     public Drawable img;
     public String group;
 
+    /**
+     * Constructor.
+     * Sets everything to null.
+     */
     public RoadSign(){
         this.name = null;
         this.desc = null;
@@ -19,6 +28,10 @@ public class RoadSign implements Serializable {
         this.group = null;
     }
 
+    /**
+     * Sets object image.
+     * @param context
+     */
     public void setImg(Context context) {
         String img = name.split("-")[0].toLowerCase()
                 + name.split("-")[1].toLowerCase()
@@ -26,6 +39,9 @@ public class RoadSign implements Serializable {
         this.img = Utils.getImageFromAssets(context, img);
     }
 
+    /**
+     * Clears object image.
+     */
     public void clearImg() {
         img = null;
     }

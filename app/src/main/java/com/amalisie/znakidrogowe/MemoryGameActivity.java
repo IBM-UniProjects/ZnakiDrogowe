@@ -16,6 +16,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Activity for Memory Game.
+ * Implements View.OnClickListener and Runnable.
+ * @author Amadeusz Lisiecki
+ */
 public class MemoryGameActivity extends AppCompatActivity implements View.OnClickListener, Runnable {
 
     private static final String TAG = MemoryGameActivity.class.getName();
@@ -38,6 +43,15 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
     private boolean gameEnded;
     private int level;
 
+    /**
+     * Overrides onCreate.
+     * - sets content view
+     * - initializes UI components (views)
+     * - initializes Game object
+     * - sets flags
+     * - starts game
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +78,20 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         this.gameEnded = false;
     }
 
+    /**
+     * Overrides onPause.
+     * - stops timer
+     */
     @Override
     protected void onPause() {
         stopTimer();
         super.onPause();
     }
 
+    /**
+     * Starts timer.
+     * Uses Handler.
+     */
     protected void startTimer() {
         this.handler = new Handler();
         this.stopTimer = false;
@@ -78,10 +100,17 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         handler.post(this);
     }
 
+    /**
+     * Stops timer.
+     */
     protected void stopTimer() {
         stopTimer = true;
     }
 
+    /**
+     * Checks if game ended.
+     * Prepares ending screen.
+     */
     protected void checkGameStatus() {
         if (tilesLeft == 0) {
             stopTimer();
@@ -104,6 +133,9 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * Adds tiles to layout.
+     */
     protected void addTilesToGrid() {
         Random random = new Random();
         for (int i = 0; i < tiles.size(); i++) {
@@ -115,6 +147,10 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * Sets tiles objects.
+     * Creates name tiles and image tiles.
+     */
     protected void createTiles() {
         tiles = new ArrayList<>();
         for (RoadSign roadSign : game.pickedSigns.values()) {
@@ -134,6 +170,9 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * Moves to Arcade game.
+     */
     protected void moveToArcadeGameActivity() {
         Intent intent = new Intent(this, ArcadeGameActivity.class);
         intent.putExtra(Utils.ELAPSED_TIME, elapsedTime);
@@ -142,12 +181,22 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         startActivity(intent);
     }
 
+    /**
+     * Moves to Menu if Back button pressed.
+     */
     protected void moveToMenuActivityByBackPress() {
         Intent intent = new Intent(this, MenuActivity.class);
         stopTimer();
         startActivity(intent);
     }
 
+    /**
+     * Overrides onClick method for View.OnClickListener.
+     * - handles uncovering tiles
+     * - changes game status
+     * - handles start and end button
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if (v instanceof Tile) {
@@ -195,6 +244,11 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * Overrides run method for Runnable.
+     * Works like as a timer.
+     * - measures time
+     */
     @Override
     public void run() {
         if (stopTimer) {
@@ -206,6 +260,10 @@ public class MemoryGameActivity extends AppCompatActivity implements View.OnClic
         handler.postDelayed(this, 70);
     }
 
+    /**
+     * Overrides onBackPressed method.
+     * Moves to Menu Activity.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

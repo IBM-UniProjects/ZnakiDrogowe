@@ -12,6 +12,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
 
+/**
+ * Utils class for methods of multiple usage.
+ * @author Amadeusz Lisiecki
+ */
 public abstract class Utils {
 
     public static final String ELAPSED_TIME = "elapsedTime";
@@ -20,6 +24,12 @@ public abstract class Utils {
 
     private static final String TAG = Utils.class.getName();
 
+    /**
+     * Opens text file from assets and returns it as String.
+     * @param context
+     * @param file
+     * @return fileToString
+     */
     public static String openTextFileFromAssets(Context context, String file) {
         StringBuilder sb = new StringBuilder();
         try(BufferedReader br = new BufferedReader(new InputStreamReader(context.getAssets().open(file)))) {
@@ -37,6 +47,12 @@ public abstract class Utils {
         return sb.toString();
     }
 
+    /**
+     * Opens text file from internal storage and returns it as String.
+     * @param context
+     * @param file
+     * @return fileToString
+     */
     public static String openTextFile(Context context, String file) {
         StringBuilder sb = new StringBuilder();
         try(BufferedReader br = new BufferedReader(new InputStreamReader(context.openFileInput(file)))) {
@@ -54,6 +70,12 @@ public abstract class Utils {
         return sb.toString();
     }
 
+    /**
+     * Saves file to internal storage.
+     * @param context
+     * @param file
+     * @param text
+     */
     public static void saveTextFile(Context context, String file, String text) {
         try(OutputStreamWriter outputWriter = new OutputStreamWriter(context.openFileOutput(file, Context.MODE_PRIVATE))) {
             outputWriter.write(text);
@@ -62,6 +84,12 @@ public abstract class Utils {
         }
     }
 
+    /**
+     * Gets Drawable image from assets.
+     * @param context
+     * @param img
+     * @return image
+     */
     public static Drawable getImageFromAssets(Context context, String img) {
         try(InputStream is = context.getAssets().open(img)) {
             Drawable d = Drawable.createFromStream(is, img);

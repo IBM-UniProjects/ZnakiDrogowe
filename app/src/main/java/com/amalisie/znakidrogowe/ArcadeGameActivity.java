@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ * Activity for Arcade Game.
+ * Implements View.OnClickListener and Runnable.
+ * @author Amadeusz Lisiecki
+ */
 public class ArcadeGameActivity extends AppCompatActivity implements View.OnClickListener, Runnable {
 
     private static final String TAG = ArcadeGameActivity.class.getName();
@@ -43,6 +48,15 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
     private long elapsedTime;
     private boolean gameEnded;
 
+    /**
+     * Overrides onCreate.
+     * - sets content view
+     * - initializes UI components (views)
+     * - gets Game object from bundle
+     * - sets flags
+     * - starts game
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,12 +86,19 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
         this.gameEnded = false;
     }
 
+    /**
+     * Overrides onPause.
+     * - stops timer
+     */
     @Override
     protected void onPause() {
         stopTimer();
         super.onPause();
     }
 
+    /**
+     * Selects road signs group for the game.
+     */
     private void selectSignGroup() {
         Random random = new Random();
         Object[] roadSigns = game.pickedSigns.values().toArray();
@@ -90,6 +111,10 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
         roadSignGroupView.setText(text);
     }
 
+    /**
+     * Checks if game ended.
+     * Prepares ending screen.
+     */
     private void checkGameStatus() {
         if (signsLeft == 0) {
             stopTimer();
@@ -121,18 +146,28 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * Moves to Menu.
+     */
     protected void moveToMenuActivity() {
         Intent intent = new Intent(this, MenuActivity.class);
         intent.putExtra(Utils.TOTAL_SCORE, score + elapsedTime);
         startActivity(intent);
     }
 
+    /**
+     * Moves to Menu if Back button pressed.
+     */
     protected void moveToMenuActivityByBackPress() {
         Intent intent = new Intent(this, MenuActivity.class);
         stopTimer();
         startActivity(intent);
     }
 
+    /**
+     * Sets flying objects.
+     * Adds them to layout.
+     */
     protected void liftOff() {
         flyingRoadSigns = new ArrayList<>();
         for (RoadSign roadSign : game.pickedSigns.values()) {
@@ -151,6 +186,10 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * Starts timer.
+     * Uses Handler.
+     */
     protected void startTimer() {
         this.handler = new Handler();
         this.stopTimer = false;
@@ -159,16 +198,27 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
         handler.post(this);
     }
 
+    /**
+     * Stops timer.
+     */
     protected void stopTimer() {
         stopTimer = true;
     }
 
+    /**
+     * Overrides onClick method for View.OnClickListener.
+     * - handles catching flying object
+     * - changes game status
+     * - gives penalties
+     * - handles start and end button
+     * @param v
+     */
     @Override
     public void onClick(View v) {
 
         if (v instanceof FlyingRoadSign) {
             FlyingRoadSign f = (FlyingRoadSign) v;
-            f.vanish(selectedSignGroup);
+            f.vanish();
             if (selectedSignGroup.equals(f.getRoadSign().group)) {
                 signsLeft--;
                 checkGameStatus();
@@ -196,6 +246,9 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    /**
+     * Saves score in file.
+     */
     private void saveScore() {
         String scoreFile = "";
         scoreFile = Utils.openTextFile(this, "score.txt");
@@ -207,6 +260,12 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
         Utils.saveTextFile(this, "score.txt", scoreFile);
     }
 
+    /**
+     * Overrides run method for Runnable.
+     * Works like as a timer.
+     * - measures time
+     * - moves flying object in every iteration
+     */
     @Override
     public void run() {
         if (stopTimer) {
@@ -221,6 +280,10 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
         handler.postDelayed(this, 70);
     }
 
+    /**
+     * Overrides onBackPressed method.
+     * Moves to Menu Activity.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

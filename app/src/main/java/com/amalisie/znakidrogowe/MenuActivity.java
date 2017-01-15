@@ -17,6 +17,11 @@ import android.widget.TextView;
 
 import java.io.File;
 
+/**
+ * Activity for Menu.
+ * Implements View.OnClickListener.
+ * @author Amadeusz Lisiecki
+ */
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = MenuActivity.class.getName();
@@ -42,6 +47,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     private int level;
 
+    /**
+     * Overrides onCreate.
+     * - sets content view
+     * - initializes UI components (views)
+     * - sets options
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +88,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         this.creator = (TextView) findViewById(R.id.creator);
 
         setOptions();
-        for (String file : fileList()) {
-            System.out.println(file);
-        }
     }
 
+    /**
+     * Sets all UI components invisible.
+     */
     private void setAllInvisible() {
         for (int i = 0; i < rootLayout.getChildCount(); i++) {
             rootLayout.getChildAt(i).setVisibility(View.INVISIBLE);
@@ -88,6 +100,16 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         creator.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Overrides onClick method for View.OnClickListener.
+     * - handles radio buttons for level selection
+     * - handles new game button
+     * - handles options button
+     * - handles score board button
+     * - handles exit button
+     * - handles back button
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         if (v instanceof RadioButton) {
@@ -129,6 +151,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Starts new game.
+     * Moves to MemoryGameActivity.
+     */
     protected void onNewGame() {
         Intent intent = getBaseContext().getPackageManager()
                 .getLaunchIntentForPackage( getBaseContext().getPackageName() );
@@ -137,6 +163,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    /**
+     * Shows score board.
+     * Gets scores from score.txt file.
+     */
     protected void onScoreBoard() {
         setAllInvisible();
         back.setVisibility(View.VISIBLE);
@@ -153,12 +183,18 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         table.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Shows options.
+     */
     protected void onOptions() {
         setAllInvisible();
         back.setVisibility(View.VISIBLE);
         radioGroup.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Shows main menu options.
+     */
     protected void onBack() {
         saveOptions();
         setAllInvisible();
@@ -168,11 +204,18 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         exit.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Saves options to options.txt file.
+     */
     protected void saveOptions() {
         String options = "level=" + level;
         Utils.saveTextFile(this, "options.txt", options);
     }
 
+    /**
+     * Gets options from options.txt file.
+     * Sets game level.
+     */
     protected void setOptions() {
         File optionsFile = new File(getFilesDir() + "/options.txt");
         String options;
@@ -195,12 +238,24 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Converts dp to px.
+     * @param dps
+     * @return pixels
+     */
     private int getPixels(int dps) {
         final float scale = getResources().getDisplayMetrics().density;
         int pixels = (int) (dps * scale + 0.5f);
         return pixels;
     }
 
+    /**
+     * Adds row to score board table.
+     * @param date
+     * @param time
+     * @param score
+     * @param level
+     */
     private void addRow(String date, String time, String score, String level) {
         TableRow row = new TableRow(this);
         table.addView(row, tableRow.getLayoutParams());
@@ -218,6 +273,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         levelTextView.setText(level);
     }
 
+    /**
+     * Overrides onBackPressed method.
+     * Exits application.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
