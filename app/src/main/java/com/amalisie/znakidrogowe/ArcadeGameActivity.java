@@ -198,7 +198,7 @@ public class ArcadeGameActivity extends AppCompatActivity implements View.OnClic
 
     private void saveScore() {
         String scoreFile = "";
-        //scoreFile = Utils.openTextFile(this, "score.txt");
+        scoreFile = Utils.openTextFile(this, "score.txt");
         long scoreMs = score / 1000000;
         long elapsedTimeMs = elapsedTime / 1000000;
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

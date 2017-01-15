@@ -113,39 +113,35 @@
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/score_view">
+        android:layout_below="@+id/score_view" >
 
         <TableRow
             android:id="@+id/tableRow"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal" >
             <TextView
                 android:id="@+id/dataColumn"
                 android:layout_width="80dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
                 android:textSize="20dp"
-                android:text="Data"
-                android:textAlignment="center"
-                android:layout_marginLeft="10dp"/>
+                android:text="Data" />
             <TextView
                 android:id="@+id/timeColumn"
                 android:layout_width="80dp"
                 android:textSize="20dp"
-                android:text="Czas"
-                android:textAlignment="center"
-                android:layout_marginLeft="5dp" />
+                android:text="Czas" />
             <TextView
                 android:id="@+id/scoreColumn"
                 android:layout_width="80dp"
                 android:textSize="20dp"
-                android:text="Punkty"
-                android:textAlignment="center"
-                android:layout_marginLeft="5dp" />
+                android:text="Punkty" />
             <TextView
                 android:id="@+id/levelColumn"
                 android:layout_width="80dp"
                 android:textSize="20dp"
-                android:text="Poziom"
-                android:textAlignment="center"/>
+                android:text="Poziom" />
         </TableRow>
 
     </TableLayout>

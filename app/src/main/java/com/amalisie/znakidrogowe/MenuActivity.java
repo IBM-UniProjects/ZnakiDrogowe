@@ -3,6 +3,8 @@ package com.amalisie.znakidrogowe;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Button;
@@ -31,6 +33,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private RadioButton level3;
     private TextView scoreView;
     private TableLayout table;
+    private TableRow tableRow;
+    private TextView dataColumn;
+    private TextView timeColumn;
+    private TextView scoreColumn;
+    private TextView levelColumn;
     private TextView creator;
 
     private int level;
@@ -61,6 +68,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         this.level3.setOnClickListener(this);
         this.scoreView = (TextView) findViewById(R.id.score_view);
         this.table = (TableLayout) findViewById(R.id.table);
+        this.tableRow = (TableRow) findViewById(R.id.tableRow);
+        this.dataColumn = (TextView) findViewById(R.id.dataColumn);
+        this.timeColumn = (TextView) findViewById(R.id.timeColumn);
+        this.scoreColumn = (TextView) findViewById(R.id.scoreColumn);
+        this.levelColumn = (TextView) findViewById(R.id.levelColumn);
         this.creator = (TextView) findViewById(R.id.creator);
 
         setOptions();
@@ -138,6 +150,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                     , splittedLine[2].trim()
                     , splittedLine[3].trim());
         }
+        table.setVisibility(View.VISIBLE);
     }
 
     protected void onOptions() {
@@ -189,7 +202,20 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void addRow(String date, String time, String score, String level) {
-
+        TableRow row = new TableRow(this);
+        table.addView(row, tableRow.getLayoutParams());
+        TextView dateTextView = new TextView(this);
+        TextView timeTextView = new TextView(this);
+        TextView scoreTextView = new TextView(this);
+        TextView levelTextView = new TextView(this);
+        row.addView(dateTextView, dataColumn.getLayoutParams());
+        row.addView(timeTextView, timeColumn.getLayoutParams());
+        row.addView(scoreTextView, scoreColumn.getLayoutParams());
+        row.addView(levelTextView, levelColumn.getLayoutParams());
+        dateTextView.setText(date);
+        timeTextView.setText(time);
+        scoreTextView.setText(score);
+        levelTextView.setText(level);
     }
 
     @Override
